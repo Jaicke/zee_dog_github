@@ -66,6 +66,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    bcrypt (3.1.17)
     bootsnap (1.11.1)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -79,6 +80,11 @@ GEM
     erubi (1.10.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
+    faker (2.20.0)
+      i18n (>= 1.8.11, < 2)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.10.0)
@@ -87,6 +93,7 @@ GEM
     io-wait (0.2.1)
     irb (1.4.1)
       reline (>= 0.3.0)
+    jwt (2.3.0)
     loofah (2.15.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -184,9 +191,12 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   bootsnap
   debug
-  factory_bot
+  factory_bot_rails
+  faker
+  jwt
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
