@@ -38,9 +38,10 @@ jobs:
           bundle exec rails db:create
           bundle exec rails db:schema:load
 
-    - name: Run tests
-      run: bundle exec rspec spec
-  deploy:
+      - name: Run tests
+        run: bundle exec rspec spec
+
+  deployment:
     name: Deploy on heroku
     runs-on: ubuntu-latest
     needs: rspec
