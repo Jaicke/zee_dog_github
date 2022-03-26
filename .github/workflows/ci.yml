@@ -1,7 +1,7 @@
 name: CI
 on: push
 jobs:
-  rspec:
+  test:
     name: RSpec
     runs-on: ubuntu-latest
     env:
@@ -40,10 +40,11 @@ jobs:
 
     - name: Run tests
       run: bundle exec rspec spec
-  deploy:
+
+  deployment:
     name: Deploy on heroku
     runs-on: ubuntu-latest
-    needs: rspec
+    needs: test
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout Code
