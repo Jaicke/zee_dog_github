@@ -13,7 +13,6 @@ RSpec.describe Api::V1::AuthenticationsController, type: :request do
       let(:credentials) { { email: user.email, password: user.password } }
 
       it 'must return 200 status' do
-        debugger
         expect(response).to have_http_status(:ok)
       end
     end
