@@ -1,0 +1,57 @@
+name: CI
+on: push
+jobs:
+  rspec:
+    name: RSpec
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:example@localhost:5432/db_test
+    services:
+      postgres:
+        image: postgres:latest
+        ports: ['5432:5432']
+        env:
+          POSTGRES_DB: db_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: example
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install postgres client dependencies
+        run: sudo apt-get install libpq-dev
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.20.0
+
+      - name: Create database
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
+
+    - name: Run tests
+      run: bundle exec rspec spec
+  deploy:
+    name: Deploy on heroku
+    runs-on: ubuntu-latest
+    needs: rspec
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Deploy on heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "zee-dog-github"
+          heroku_email: "jaicke-santos@outlook.com"
