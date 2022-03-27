@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RepositoriesController, type: :request do
-  describe 'POST #create' do
+  describe 'GET #index' do
     let(:user) { create(:user) }
 
     context 'when user is authenticated' do
@@ -15,7 +15,7 @@ RSpec.describe Api::V1::RepositoriesController, type: :request do
       end
 
       it 'must return repository fields' do
-        expect(json_body[0]).to include(:full_name, :description, :forks_count, :stargazers_count)
+        expect(json_body[0]).to include(:id, :full_name, :description, :forks_count, :stargazers_count, :owner)
       end
     end
 

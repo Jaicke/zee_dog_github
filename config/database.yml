@@ -6,11 +6,17 @@ default: &default
 development:
   <<: *default
   database: zee_dog_github_development
+  host: db
+  username: postgres
+  password: password
 
 
 test:
   <<: *default
   database: zee_dog_github_test
+  host: db
+  username: postgres
+  password: password
 
 
 production:
