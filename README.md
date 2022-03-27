@@ -25,7 +25,7 @@ Aplicação desenvolvida com a finalidade de consumir a [API de busca de reposit
 - [x]  Descrição;
 - [x]  Quantidade de estrelas;
 - [x]  Quantidade de forks;
-- [ ]  Nome do autor;
+- [X]  Nome do autor;
 
 #### Resposta
 - [x]  A resposta das requisições deve ser paginada.
