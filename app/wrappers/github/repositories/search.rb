@@ -18,7 +18,7 @@ class Github::Repositories::Search < Github::Base
 
     json = JSON.parse(response.body, symbolize_names: true)
 
-    json[:items]
+    build_response(json[:items])
   end
 
   def self.call!(params)
@@ -36,5 +36,18 @@ class Github::Repositories::Search < Github::Base
 
   def repositories_query_params
     "?q=#{build_query}&sort=#{@params[:sort]}&order=#{@params[:order]}&per_page=#{@per_page}&page=#{@page}"
+  end
+
+  def build_response(items)
+    items.map! do |item|
+      {
+        id: item[:id],
+        full_name: item[:full_name],
+        description: item[:description],
+        stargazers_count: item[:stargazers_count],
+        forks_count: item[:forks_count],
+        owner: item[:owner][:login]
+      }
+    end
   end
 end
